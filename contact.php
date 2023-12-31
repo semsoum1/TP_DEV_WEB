@@ -36,7 +36,7 @@
             <div class="left">
                 <h3 class="heading">Contactez-nous</h3>
                 <p class="text">Comment pouvons-nous vous aider ?</p>
-                <form action="#">
+                <form action="contact.php" method="post">
                     <div class="inputBox">
                         <input type="text" name="name" class="name" placeholder="Entrez votre Nom">
                     </div>
@@ -132,5 +132,40 @@
         </div>
     </section>
     <script src="script.js"></script>
+    <?php
+            try
+            {
+                global $bdd;
+                $bdd = new PDO('mysql:host=localhost;dbname=test-db1;charset=utf8', 'root', '');
+        
+            }
+            catch (Exception $e)
+            {
+                    die('Erreur : ' . $e->getMessage());
+            }
+            
+            
+            if(isset($_POST['name']) and isset($_POST['email']) and isset($_POST['message']))
+	{
+		if(!empty($_POST['name']) and !empty($_POST['email']) and !empty($_POST['message']))
+		{
+            $sql1="select * from contact where name=''   ";
+            $reponse = $bdd->query($sql1);
+            $donnees = $reponse->fetch();
+            
+            if(empty($donnees))
+			{   
+				$sql2="insert into contact(name, email,message) values('".$_POST['name']."','".$_POST['email']."','".$_POST['message']."') ";
+				$bdd->exec($sql2);
+				
+			echo "<center>Congrats</center>";
+			}
+			else
+			echo "<center>null</center>";
+		}
+		else
+		echo "<center>Attention !! Remplir tous les champs avec des valeur non nulles</center>"; 
+	} 
+        ?> 
 </body>
 </html>
