@@ -37,7 +37,7 @@
 
             <!-- Signup form -->
             <div class="form signup-form">
-                <form action="signup.php" method="post">
+                <form action="signup.php" method="post" onsubmit="verif()">
                     <h2>Signup</h2>
                     <div class="input-box">
                         <input type="text" name="username" placeholder="Enter your username">
@@ -59,6 +59,12 @@
         </div>
     </section>
 
+    <script lang="javascript">
+        function verif() {
+            if (document.getElementsByName("username").value == "") { alert("Veuillez taper votre nom !"); return false;}
+            if (document.getElementsByName("password").value == "") { alert("Veuillez taper votre CIN!"); return false; }
+        }
+    </script>
     
 
     <?php
